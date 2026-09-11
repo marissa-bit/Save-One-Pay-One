@@ -14,17 +14,21 @@
   =====================================================================
   1. In GHL, create a new Funnel/Website page (blank template).
   2. Add a "Custom Code" / "Embed" element and paste EVERYTHING inside
-     the <body> tag below (the <style> block travels with it, so one
-     paste brings the layout and the CSS together). If your GHL builder
-     asks for CSS separately, copy the contents of the <style> tag into
-     the page's "Custom CSS" field and paste only the HTML markup below
-     it into the Custom Code / HTML element.
-  3. Replace the three placeholder booking links marked
-     "REPLACE_WITH_GHL_CALENDAR_LINK" with your real GHL calendar /
-     booking links for each date (Settings > Calendars > booking widget
-     link, or a form/survey link).
-  4. Swap the hero emblem for your logo, and the CE Course # if it
-     changes season to season.
+     the <body> tag below as ONE block (the <style> and <script> travel
+     with it). Do not split the CSS into a separate field.
+  3. The date card and countdown are driven by the SESSIONS list inside
+     the <script> tag near the bottom (search for "SESSIONS LIST"). All
+     three dates are already in there. The page automatically shows
+     whichever one hasn't happened yet based on the visitor's clock --
+     once October 13 passes, it switches to October 22 on its own, then
+     to November 12. Nothing to edit as each date comes and goes. To
+     add a fourth date later, just add another entry to that list.
+  4. Replace HERO_PHOTO_URL (search for it below) with a real photo of
+     Trophy Club Country Club: upload it in GHL's Media Library, copy
+     the link, and paste it in as the img src.
+  5. The map already points at 500 Trophy Club Drive, Trophy Club, TX
+     76262 and needs no API key -- no action needed unless the venue
+     changes.
   =====================================================================
 -->
 
@@ -76,15 +80,6 @@
     max-width:1080px;
     margin-inline:auto;
     padding-inline:clamp(20px,5vw,64px);
-  }
-
-  .rule-double{
-    width:64px;
-    margin-inline:auto;
-    border-top:1px solid currentColor;
-    padding-top:4px;
-    border-bottom:1px solid currentColor;
-    opacity:0.7;
   }
 
   /* ---------- Buttons ---------- */
@@ -153,15 +148,32 @@
   }
   .nav .btn{padding:0.7em 1.3em; font-size:0.72rem;}
 
-  /* ---------- Hero ---------- */
+  /* ---------- Hero (with photo) ---------- */
   .hero{
-    background:
-      radial-gradient(120% 140% at 50% -20%, rgba(217,169,79,0.16), transparent 60%),
-      var(--fairway-deep);
+    position:relative;
+    overflow:hidden;
+    background:var(--fairway-deep);
     color:var(--parchment);
     text-align:center;
-    padding-block:clamp(3.2rem,8vw,5.5rem) clamp(3rem,7vw,4.5rem);
+    padding-block:clamp(3.6rem,10vw,6.5rem) clamp(3rem,7vw,4.5rem);
   }
+  .hero-photo{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:0;
+  }
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:
+      radial-gradient(120% 140% at 50% -20%, rgba(217,169,79,0.20), transparent 60%),
+      linear-gradient(180deg, rgba(20,42,31,0.55) 0%, rgba(20,42,31,0.80) 55%, rgba(20,42,31,0.94) 100%);
+  }
+  .hero-content{position:relative; z-index:2;}
   .emblem{
     width:56px;
     height:56px;
@@ -207,6 +219,43 @@
     font-size:1rem;
   }
   .hero-cta{margin-top:2rem; display:flex; flex-direction:column; align-items:center; gap:0.9rem;}
+
+  /* ---------- Countdown ---------- */
+  .countdown{
+    background:var(--fairway);
+    border-bottom:1px solid rgba(217,169,79,0.35);
+    text-align:center;
+    padding-block:1.8rem;
+  }
+  .countdown-grid{
+    display:flex;
+    justify-content:center;
+    gap:clamp(1.1rem,4vw,3rem);
+    flex-wrap:wrap;
+  }
+  .countdown-item{display:flex; flex-direction:column; align-items:center; min-width:60px;}
+  .countdown-num{
+    font-family:"Fraunces", serif;
+    font-weight:600;
+    font-size:clamp(1.7rem,5vw,2.5rem);
+    color:var(--brass-bright);
+    font-variant-numeric:tabular-nums;
+    line-height:1;
+  }
+  .countdown-label{
+    font-family:"Public Sans", Arial, sans-serif;
+    font-size:0.66rem;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--sand);
+    margin-top:0.4rem;
+  }
+  .countdown-caption{
+    margin-top:1rem;
+    font-family:"Public Sans", Arial, sans-serif;
+    font-size:0.8rem;
+    color:var(--sand);
+  }
 
   /* ---------- Schedule strip ---------- */
   .schedule{
@@ -302,17 +351,49 @@
     .about-grid{grid-template-columns:1fr;}
   }
 
+  /* ---------- Location / Map ---------- */
+  .location-grid{
+    display:grid;
+    grid-template-columns:1.3fr 0.9fr;
+    gap:clamp(1.5rem,4vw,2.5rem);
+    align-items:stretch;
+  }
+  .location-map{
+    border:1px solid var(--sand);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    min-height:280px;
+  }
+  .location-map iframe{display:block; width:100%; height:100%; min-height:280px;}
+  .location-details{
+    background:var(--card);
+    border:1px solid var(--sand);
+    padding:1.8rem;
+    display:flex;
+    flex-direction:column;
+    gap:0.9rem;
+    justify-content:center;
+  }
+  .location-details h3{font-size:1.2rem;}
+  .location-details p{color:var(--ink-soft); font-size:0.95rem; margin:0;}
+  .location-details .btn{align-self:flex-start;}
+
+  @media (max-width:780px){
+    .location-grid{grid-template-columns:1fr;}
+  }
+
   /* ---------- Dates / RSVP ---------- */
   .dates{background:var(--parchment);}
   .date-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:1.5rem;
+    grid-template-columns:1fr;
+    max-width:420px;
+    margin-inline:auto;
   }
   .date-card{
     background:var(--card);
     border:1px solid var(--sand);
-    padding:2rem 1.7rem 1.8rem;
+    padding:2.2rem 2rem 2rem;
     text-align:center;
     display:flex;
     flex-direction:column;
@@ -322,36 +403,31 @@
   .date-day{
     font-family:"Fraunces", serif;
     font-weight:600;
-    font-size:1.55rem;
+    font-size:1.7rem;
     color:var(--fairway-deep);
     margin-top:0.5rem;
   }
   .date-full{
     font-family:"Public Sans", Arial, sans-serif;
-    font-size:0.85rem;
+    font-size:0.9rem;
     color:var(--ink-soft);
     margin-top:0.25rem;
   }
   .date-time{
     font-family:"Public Sans", Arial, sans-serif;
-    font-size:0.78rem;
+    font-size:0.8rem;
     letter-spacing:0.06em;
     color:var(--brass);
     margin-top:0.6rem;
     font-weight:600;
   }
-  .date-card .btn{margin-top:1.4rem;}
+  .date-card .btn{margin-top:1.5rem;}
   .date-fine{
-    margin-top:auto;
-    padding-top:1.1rem;
     font-size:0.76rem;
     color:var(--ink-soft);
     border-top:1px solid var(--sand);
-    margin-top:1.3rem;
-  }
-
-  @media (max-width:860px){
-    .date-grid{grid-template-columns:1fr;}
+    margin-top:1.4rem;
+    padding-top:1.1rem;
   }
 
   /* ---------- Footer ---------- */
@@ -388,7 +464,9 @@
 </header>
 
 <section class="hero">
-  <div class="wrap">
+  <img class="hero-photo" src="HERO_PHOTO_URL" alt="Trophy Club Country Club clubhouse and fairway" onerror="this.style.display='none'">
+  <div class="hero-overlay"></div>
+  <div class="wrap hero-content">
     <svg class="emblem" viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="1.4">
       <path d="M18 14h20v6a10 10 0 0 1-20 0v-6z"/>
       <path d="M18 16h-6a6 6 0 0 0 6 8"/>
@@ -403,11 +481,35 @@
     <p class="hero-desc">A private roundtable for REALTORS&reg; who want to think, analyze, and negotiate like investors &mdash; over a family-style breakfast, with one hour of CE credit included.</p>
     <span class="hero-badge">Invited Guests Only</span>
     <div class="hero-cta">
-      <a class="btn" href="#dates">Choose Your Date</a>
+      <a class="btn" href="#dates">Reserve Your Seat</a>
       <a class="btn btn--ghost" href="#gain">What You'll Gain</a>
     </div>
   </div>
 </section>
+
+<div class="countdown" aria-live="polite">
+  <div class="wrap">
+    <div class="countdown-grid">
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-days">00</span>
+        <span class="countdown-label">Days</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-hours">00</span>
+        <span class="countdown-label">Hours</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-mins">00</span>
+        <span class="countdown-label">Minutes</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-num" id="cd-secs">00</span>
+        <span class="countdown-label">Seconds</span>
+      </div>
+    </div>
+    <p class="countdown-caption" id="cd-caption">Until we gather at Trophy Club Country Club</p>
+  </div>
+</div>
 
 <div class="schedule">
   <div class="wrap schedule-grid">
@@ -488,40 +590,47 @@
   </div>
 </section>
 
+<section id="location">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Getting There</span>
+      <h2>Trophy Club Country Club</h2>
+      <p>500 Trophy Club Drive, Trophy Club, TX 76262</p>
+    </div>
+
+    <div class="location-grid">
+      <div class="location-map">
+        <iframe
+          src="https://maps.google.com/maps?q=500%20Trophy%20Club%20Drive%2C%20Trophy%20Club%2C%20TX%2076262&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Map to Trophy Club Country Club"></iframe>
+      </div>
+      <div class="location-details">
+        <h3>Plan Your Arrival</h3>
+        <p>Valet and self-parking are available at the clubhouse entrance. Please allow a few extra minutes ahead of the 9:15 AM start &mdash; breakfast is served promptly.</p>
+        <a class="btn btn--ghost" href="https://www.google.com/maps/dir/?api=1&destination=500+Trophy+Club+Drive,+Trophy+Club,+TX+76262" target="_blank" rel="noopener">Get Directions</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="dates">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Limited Seating &middot; Invited Guests Only</span>
       <h2>Reserve Your Seat</h2>
-      <p>Three sessions at Trophy Club Country Club. Choose the date that works for your schedule &mdash; each roundtable is capped to keep the conversation close.</p>
+      <p>One private roundtable to start at Trophy Club Country Club &mdash; capped in size to keep the conversation close.</p>
     </div>
 
     <div class="date-grid">
 
       <div class="date-card">
-        <span class="eyebrow">Session One</span>
-        <div class="date-day">Tuesday</div>
-        <div class="date-full">October 13, 2026</div>
-        <div class="date-time">9:15 &ndash; 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/Mx3LNoC5FbpbyfAxDnpB" target="_blank" rel="noopener">Reserve This Date</a>
-        <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
-      </div>
-
-      <div class="date-card">
-        <span class="eyebrow">Session Two</span>
-        <div class="date-day">Thursday</div>
-        <div class="date-full">October 22, 2026</div>
-        <div class="date-time">9:15 &ndash; 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/RYlMzvSEvnCmRisa98Vj" target="_blank" rel="noopener">Reserve This Date</a>
-        <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
-      </div>
-
-      <div class="date-card">
-        <span class="eyebrow">Session Three</span>
-        <div class="date-day">Thursday</div>
-        <div class="date-full">November 12, 2026</div>
-        <div class="date-time">9:15 &ndash; 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/jZPrE627G8QRaYMEHJ6Q" target="_blank" rel="noopener">Reserve This Date</a>
+        <span class="eyebrow" id="active-eyebrow">Next Session</span>
+        <div class="date-day" id="active-day">Tuesday</div>
+        <div class="date-full" id="active-full">October 13, 2026</div>
+        <div class="date-time" id="active-time">9:15 &ndash; 10:30 AM</div>
+        <a class="btn btn--block" id="active-link" href="https://api.leadconnectorhq.com/widget/booking/Mx3LNoC5FbpbyfAxDnpB" target="_blank" rel="noopener">Reserve This Date</a>
         <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
       </div>
 
@@ -535,6 +644,86 @@
     <p class="footer-fine">By invitation only. Seating is limited and confirmed on a first-reserved basis. 1 Hour CE Credit, Course #54060, included with attendance. Trophy Club Country Club &middot; 500 Trophy Club Drive, Trophy Club, TX 76262.</p>
   </div>
 </footer>
+
+<script>
+(function(){
+  /* SESSIONS LIST -- add, remove, or edit dates here. The page always
+     shows the first one that hasn't happened yet, based on the
+     visitor's clock, and switches to the next automatically once a
+     date passes. "iso" needs a real UTC offset: Trophy Club, TX runs
+     Central time, which is -05:00 while Daylight Time is in effect
+     (roughly mid-March through the first Sunday of November) and
+     -06:00 the rest of the year. */
+  var SESSIONS = [
+    {
+      day: "Tuesday", full: "October 13, 2026", time: "9:15 &ndash; 10:30 AM",
+      iso: "2026-10-13T09:15:00-05:00",
+      link: "https://api.leadconnectorhq.com/widget/booking/Mx3LNoC5FbpbyfAxDnpB"
+    },
+    {
+      day: "Thursday", full: "October 22, 2026", time: "9:15 &ndash; 10:30 AM",
+      iso: "2026-10-22T09:15:00-05:00",
+      link: "https://api.leadconnectorhq.com/widget/booking/RYlMzvSEvnCmRisa98Vj"
+    },
+    {
+      day: "Thursday", full: "November 12, 2026", time: "9:15 &ndash; 10:30 AM",
+      iso: "2026-11-12T09:15:00-06:00",
+      link: "https://api.leadconnectorhq.com/widget/booking/jZPrE627G8QRaYMEHJ6Q"
+    }
+  ];
+
+  var now = Date.now();
+  var upcoming = SESSIONS.filter(function(s){ return new Date(s.iso).getTime() > now; });
+  var hasUpcoming = upcoming.length > 0;
+  var session = hasUpcoming ? upcoming[0] : SESSIONS[SESSIONS.length - 1];
+
+  var eyebrowEl = document.getElementById('active-eyebrow');
+  var dayEl = document.getElementById('active-day');
+  var fullEl = document.getElementById('active-full');
+  var timeEl = document.getElementById('active-time');
+  var linkEl = document.getElementById('active-link');
+
+  dayEl.textContent = session.day;
+  fullEl.textContent = session.full;
+  timeEl.innerHTML = session.time;
+  linkEl.href = session.link;
+  if(!hasUpcoming){
+    eyebrowEl.textContent = 'More Dates Coming Soon';
+  }
+
+  var target = new Date(session.iso).getTime();
+  var daysEl = document.getElementById('cd-days');
+  var hoursEl = document.getElementById('cd-hours');
+  var minsEl = document.getElementById('cd-mins');
+  var secsEl = document.getElementById('cd-secs');
+  var captionEl = document.getElementById('cd-caption');
+  var timer = null;
+
+  function pad(n){ return String(n).padStart(2, '0'); }
+
+  function tick(){
+    var diff = target - Date.now();
+    if(diff <= 0){
+      daysEl.textContent = '00';
+      hoursEl.textContent = '00';
+      minsEl.textContent = '00';
+      secsEl.textContent = '00';
+      captionEl.textContent = hasUpcoming
+        ? "We'll see you at Trophy Club Country Club!"
+        : "New dates coming soon — check back for the next roundtable";
+      if(timer){ clearInterval(timer); }
+      return;
+    }
+    daysEl.textContent = pad(Math.floor(diff / 86400000));
+    hoursEl.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+    minsEl.textContent = pad(Math.floor((diff % 3600000) / 60000));
+    secsEl.textContent = pad(Math.floor((diff % 60000) / 1000));
+  }
+
+  tick();
+  timer = setInterval(tick, 1000);
+})();
+</script>
 
 </body>
 </html>
