@@ -547,14 +547,6 @@
 
         <div class="hero-meta">
           <span class="hero-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-            <span id="hero-meta-date">October 13, 2026</span>
-          </span>
-          <span class="hero-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-            <span id="hero-meta-time">9:15 AM</span>
-          </span>
-          <span class="hero-meta-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
             Trophy Club, TX
           </span>
@@ -785,18 +777,18 @@
 
 <script>
 (function(){
-  /* SESSIONS LIST -- drives the countdown and the hero date/time above.
-     The three date cards further down the page are static HTML; edit
-     their text/links directly. Keep this list in sync with those cards
-     so the countdown and hero always point at a real, currently-offered
-     date. "iso" needs a real UTC offset: Trophy Club, TX runs Central
-     time, which is -05:00 while Daylight Time is in effect (roughly
+  /* SESSIONS LIST -- drives only the countdown timer above. The three
+     date cards further down the page are static HTML; edit their
+     text/links directly. Keep this list in sync with those cards so
+     the countdown always points at a real, currently-offered date.
+     "iso" needs a real UTC offset: Trophy Club, TX runs Central time,
+     which is -05:00 while Daylight Time is in effect (roughly
      mid-March through the first Sunday of November) and -06:00 the
      rest of the year. */
   var SESSIONS = [
-    { iso: "2026-10-13T09:15:00-05:00", metaDate: "October 13, 2026", metaTime: "9:15 AM" },
-    { iso: "2026-10-22T09:15:00-05:00", metaDate: "October 22, 2026", metaTime: "9:15 AM" },
-    { iso: "2026-11-12T09:15:00-06:00", metaDate: "November 12, 2026", metaTime: "9:15 AM" }
+    { iso: "2026-10-13T09:15:00-05:00" },
+    { iso: "2026-10-22T09:15:00-05:00" },
+    { iso: "2026-11-12T09:15:00-06:00" }
   ];
 
   var now = Date.now();
@@ -804,11 +796,6 @@
   var hasUpcoming = upcoming.length > 0;
   var session = hasUpcoming ? upcoming[0] : SESSIONS[SESSIONS.length - 1];
   var target = new Date(session.iso).getTime();
-
-  var metaDateEl = document.getElementById('hero-meta-date');
-  var metaTimeEl = document.getElementById('hero-meta-time');
-  if(metaDateEl){ metaDateEl.textContent = session.metaDate; }
-  if(metaTimeEl){ metaTimeEl.textContent = session.metaTime; }
 
   var daysEl = document.getElementById('cd-days');
   var hoursEl = document.getElementById('cd-hours');
