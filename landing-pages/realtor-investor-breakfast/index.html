@@ -45,7 +45,6 @@
     --ink:#1A1A1A;
     --ink-soft:#55585C;
     --sand:#E2E2E4;
-    --gray-brand:#9BA0A6;
     --shadow: 0 18px 40px -24px rgba(0,0,0,0.22);
   }
 
@@ -131,26 +130,8 @@
     gap:1rem;
     padding-block:0.85rem;
   }
-  .wordmark{
-    font-family:"Poppins", Arial, sans-serif;
-    color:var(--red-deep);
-    font-weight:800;
-    letter-spacing:0.02em;
-    font-size:1.3rem;
-    text-transform:uppercase;
-  }
-  .wordmark span{
-    display:block;
-    font-family:"Poppins", Arial, sans-serif;
-    font-weight:600;
-    letter-spacing:0.08em;
-    font-style:normal;
-    text-transform:uppercase;
-    color:var(--gray-brand);
-    font-size:0.62rem;
-    margin-top:4px;
-  }
   .nav .btn{padding:0.7em 1.3em; font-size:0.72rem;}
+  .logo{display:block; height:44px; width:auto;}
 
   /* ---------- Hero (with photo) ---------- */
   .hero{
@@ -462,8 +443,14 @@
     gap:1.5rem;
     flex-wrap:wrap;
   }
-  footer .wordmark{color:var(--paper);}
-  footer .wordmark span{color:var(--sand);}
+  .footer-logo-card{
+    display:inline-flex;
+    align-items:center;
+    background:var(--paper);
+    padding:0.7rem 1.1rem;
+    border-radius:6px;
+  }
+  .footer-logo{display:block; height:52px; width:auto;}
   .footer-fine{
     font-family:"Poppins", Arial, sans-serif;
     font-size:0.78rem;
@@ -478,7 +465,7 @@
 
 <header>
   <div class="wrap nav">
-    <div class="wordmark">Save One Pay One<span>Purpose-Driven Cash Home Buyers</span></div>
+    <img class="logo" src="https://assets.cdn.filesafe.space/DaeITdJ7ZcYSX6v6Yt6M/media/68d6a79bf838e232dc57a7c9.png" alt="Save One Pay One - Purpose-Driven Cash Home Buyers">
     <a class="btn" href="#dates">Reserve Your Seat</a>
   </div>
 </header>
@@ -658,7 +645,9 @@
 
 <footer>
   <div class="wrap footer-grid">
-    <div class="wordmark">Save One Pay One<span>Purpose-Driven Cash Home Buyers</span></div>
+    <div class="footer-logo-card">
+      <img class="footer-logo" src="https://assets.cdn.filesafe.space/DaeITdJ7ZcYSX6v6Yt6M/media/68d6a79bf838e232dc57a7c9.png" alt="Save One Pay One - Purpose-Driven Cash Home Buyers">
+    </div>
     <p class="footer-fine">By invitation only. Seating is limited and confirmed on a first-reserved basis. 1 Hour CE Credit, Course #54060, included with attendance. Trophy Club Country Club &middot; 500 Trophy Club Drive, Trophy Club, TX 76262.</p>
   </div>
 </footer>
