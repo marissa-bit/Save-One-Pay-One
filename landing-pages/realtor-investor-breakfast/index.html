@@ -16,21 +16,20 @@
   2. Add a "Custom Code" / "Embed" element and paste EVERYTHING inside
      the <body> tag below as ONE block (the <style> and <script> travel
      with it). Do not split the CSS into a separate field.
-  3. The date card and countdown are driven by the SESSIONS list inside
-     the <script> tag near the bottom (search for "SESSIONS LIST"). All
-     three dates are already in there. The page automatically shows
-     whichever one hasn't happened yet based on the visitor's clock --
-     once October 13 passes, it switches to October 22 on its own, then
-     to November 12. Nothing to edit as each date comes and goes. To
-     add a fourth date later, just add another entry to that list.
-  4. The hero photo and breakfast photo are already wired up. Swap
-     either img src if you ever want to use a different photo.
+  3. All three dates (Oct 13, Oct 22, Nov 12) are live as separate
+     buttons in the "AVAILABLE EVENT DATES" section, each linking to
+     its own GHL calendar booking widget. The countdown timer above
+     it auto-advances to whichever date hasn't happened yet -- edit
+     the SESSIONS list inside the <script> tag near the bottom to
+     change dates/links.
+  4. The hero photo, breakfast photo, and logo are already wired up.
   5. The map already points at 500 Trophy Club Drive, Trophy Club, TX
-     76262 and needs no API key -- no action needed unless the venue
-     changes.
-  6. Colors and type are pulled from the Save One Pay One brand (red,
-     gray, white/black, Poppins + Source Serif 4). Edit the :root
-     variables at the top of the <style> block to adjust.
+     76262 and needs no API key.
+  6. This page does NOT include the registration form, confirmation
+     page, confirmation/reminder emails or texts, or the Agent/Broker
+     vs. "Other" branching logic from your brief -- those are built
+     natively in GHL's Form Builder and Workflows, not in this HTML
+     file.
   =====================================================================
 -->
 
@@ -45,6 +44,8 @@
     --ink:#1A1A1A;
     --ink-soft:#55585C;
     --sand:#E2E2E4;
+    --sky-blue:#87CEEB;
+    --primary-blue:#00AEEF;
     --shadow: 0 18px 40px -24px rgba(0,0,0,0.22);
   }
 
@@ -93,7 +94,7 @@
     font-family:"Poppins", Arial, sans-serif;
     font-weight:600;
     font-size:0.82rem;
-    letter-spacing:0.08em;
+    letter-spacing:0.06em;
     text-transform:uppercase;
     text-decoration:none;
     padding:0.95em 1.8em;
@@ -120,7 +121,7 @@
     position:sticky;
     top:0;
     z-index:20;
-    background:var(--paper);
+    background:linear-gradient(180deg, var(--primary-blue) 0%, var(--sky-blue) 55%, var(--paper) 100%);
     border-bottom:1px solid var(--sand);
   }
   .nav{
@@ -169,7 +170,7 @@
   .hero .eyebrow{color:var(--red-bright);}
   .hero-badge{
     display:inline-block;
-    margin-top:1rem;
+    margin-top:1.2rem;
     font-family:"Poppins", Arial, sans-serif;
     font-size:0.68rem;
     letter-spacing:0.18em;
@@ -181,10 +182,10 @@
   }
   .hero h1{
     color:var(--paper);
-    font-size:clamp(2.3rem,6vw,4rem);
+    font-size:clamp(2.1rem,5.6vw,3.6rem);
     font-weight:700;
     margin-top:0.6rem;
-    line-height:1.08;
+    line-height:1.1;
   }
   .hero h1 em{
     font-family:"Source Serif 4", Georgia, serif;
@@ -192,18 +193,21 @@
     font-weight:500;
     color:var(--red-bright);
   }
+  .hero-subhead{
+    font-family:"Poppins", Arial, sans-serif;
+    font-weight:700;
+    font-size:0.98rem;
+    letter-spacing:0.01em;
+    color:var(--paper);
+    max-width:34ch;
+    margin:1rem auto 0;
+  }
   .hero-loc{
     font-family:"Poppins", Arial, sans-serif;
     font-size:0.85rem;
     letter-spacing:0.04em;
     color:var(--sand);
     margin-top:0.9rem;
-  }
-  .hero-desc{
-    max-width:46ch;
-    margin:1.1rem auto 0;
-    color:var(--sand);
-    font-size:1rem;
   }
   .hero-cta{margin-top:2rem; display:flex; flex-direction:column; align-items:center; gap:0.9rem;}
   .hero .btn--ghost{color:var(--paper); border-color:var(--paper);}
@@ -246,6 +250,18 @@
     color:var(--sand);
   }
 
+  /* ---------- Section shell ---------- */
+  section{padding-block:clamp(3rem,7vw,4.5rem);}
+  .section-head{text-align:center; max-width:56ch; margin:0 auto 2.6rem;}
+  .section-head .eyebrow{color:var(--red); display:block; margin-bottom:0.6rem;}
+  .section-head h2{font-size:clamp(1.7rem,4vw,2.4rem); font-weight:700;}
+  .section-head p{margin-top:0.85rem; color:var(--ink-soft);}
+
+  /* ---------- Intro copy ---------- */
+  .intro-copy{max-width:680px; margin:0 auto; text-align:center;}
+  .intro-copy p{margin-top:1.1rem; color:var(--ink-soft); font-size:1.03rem;}
+  .intro-copy p:first-child{margin-top:0;}
+
   /* ---------- Schedule strip ---------- */
   .schedule{
     background:var(--card);
@@ -258,12 +274,18 @@
     padding-block:2.4rem;
   }
   .schedule-item{text-align:center;}
-  .schedule-item svg{width:30px; height:30px; color:var(--red); margin-bottom:0.65rem;}
+  .schedule-item svg{width:28px; height:28px; color:var(--red); margin-bottom:0.6rem;}
+  .schedule-time{
+    font-family:"Poppins", Arial, sans-serif;
+    font-weight:800;
+    font-size:1rem;
+    letter-spacing:0.03em;
+    color:var(--red);
+    margin-bottom:0.3rem;
+  }
   .schedule-item h3{
     font-family:"Poppins", Arial, sans-serif;
-    font-size:0.78rem;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
+    font-size:0.9rem;
     color:var(--ink);
     font-weight:700;
   }
@@ -272,13 +294,6 @@
   @media (max-width:720px){
     .schedule-grid{grid-template-columns:1fr; text-align:center;}
   }
-
-  /* ---------- Section shell ---------- */
-  section{padding-block:clamp(3rem,7vw,4.5rem);}
-  .section-head{text-align:center; max-width:56ch; margin:0 auto 2.6rem;}
-  .section-head .eyebrow{color:var(--red); display:block; margin-bottom:0.6rem;}
-  .section-head h2{font-size:clamp(1.7rem,4vw,2.4rem); font-weight:700;}
-  .section-head p{margin-top:0.85rem; color:var(--ink-soft);}
 
   /* ---------- Gain grid ---------- */
   .gain-grid{
@@ -295,7 +310,7 @@
   .gain-card svg{width:26px; height:26px; color:var(--red);}
   .gain-card h3{
     font-family:"Poppins", Arial, sans-serif;
-    font-size:1.08rem;
+    font-size:1.05rem;
     font-weight:700;
     margin-top:0.9rem;
   }
@@ -309,46 +324,11 @@
   }
 
   /* ---------- About / mission ---------- */
-  .about{background:var(--red-mid); color:var(--paper);}
-  .about-grid{
-    display:grid;
-    grid-template-columns:1.2fr 0.8fr;
-    gap:clamp(2rem,5vw,3.5rem);
-    align-items:center;
-  }
+  .about{background:var(--red-mid); color:var(--paper); text-align:center;}
+  .about .wrap{max-width:680px;}
   .about .eyebrow{color:var(--paper);}
-  .about h2{color:var(--paper); font-size:clamp(1.6rem,3.6vw,2.2rem); margin-top:0.6rem;}
+  .about h2{color:var(--paper); font-size:clamp(1.5rem,3.4vw,2.1rem); margin-top:0.6rem;}
   .about p{color:var(--sand); margin-top:1rem;}
-  .about-tagline{
-    font-family:"Source Serif 4", Georgia, serif;
-    font-style:italic;
-    font-weight:500;
-    font-size:1.15rem;
-    color:var(--paper);
-    margin-top:1.3rem;
-  }
-  .seating-card{
-    background:rgba(255,255,255,0.06);
-    border:1px solid rgba(255,255,255,0.35);
-    padding:2rem;
-    text-align:center;
-  }
-  .seating-photo{
-    display:block;
-    width:auto;
-    max-width:100%;
-    height:auto;
-    max-height:200px;
-    margin:0 auto 1.3rem;
-    background:transparent;
-  }
-  .seating-card .eyebrow{color:var(--paper);}
-  .seating-card h3{color:var(--paper); font-size:1.3rem; margin-top:0.6rem;}
-  .seating-card p{color:var(--sand); font-size:0.92rem; margin-top:0.7rem;}
-
-  @media (max-width:820px){
-    .about-grid{grid-template-columns:1fr;}
-  }
 
   /* ---------- Location / Map ---------- */
   .location-grid{
@@ -358,7 +338,7 @@
     align-items:stretch;
   }
   .location-map{
-    border:1px solid var(--sand);
+    border:2px solid var(--primary-blue);
     overflow:hidden;
     box-shadow:var(--shadow);
     min-height:280px;
@@ -381,19 +361,36 @@
     .location-grid{grid-template-columns:1fr;}
   }
 
+  /* ---------- Attendance notice ---------- */
+  #notice{padding-block:1.5rem 0.5rem;}
+  .notice{
+    border:2px solid var(--red);
+    background:var(--card);
+    padding:clamp(1.4rem,4vw,2.2rem);
+  }
+  .notice-head{
+    font-family:"Poppins", Arial, sans-serif;
+    font-weight:800;
+    font-size:0.92rem;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--red-deep);
+    margin-bottom:0.9rem;
+  }
+  .notice p{color:var(--ink-soft); font-size:0.94rem; margin-top:0.75rem;}
+  .notice p:first-of-type{margin-top:0;}
+
   /* ---------- Dates / RSVP ---------- */
-  #dates{background:var(--paper); padding-bottom:1.5rem;}
-  #location{padding-top:1.5rem;}
+  #dates{padding-top:1rem;}
   .date-grid{
     display:grid;
-    grid-template-columns:1fr;
-    max-width:420px;
-    margin-inline:auto;
+    grid-template-columns:repeat(3,1fr);
+    gap:1.5rem;
   }
   .date-card{
     background:var(--card);
     border:1px solid var(--sand);
-    padding:2.2rem 2rem 2rem;
+    padding:2rem 1.7rem 1.8rem;
     text-align:center;
     display:flex;
     flex-direction:column;
@@ -403,32 +400,60 @@
   .date-day{
     font-family:"Poppins", Arial, sans-serif;
     font-weight:700;
-    font-size:1.6rem;
+    font-size:1.5rem;
     color:var(--ink);
     margin-top:0.5rem;
   }
   .date-full{
     font-family:"Poppins", Arial, sans-serif;
-    font-size:0.9rem;
+    font-size:0.85rem;
     color:var(--ink-soft);
     margin-top:0.25rem;
   }
   .date-time{
     font-family:"Poppins", Arial, sans-serif;
-    font-size:0.8rem;
+    font-size:0.78rem;
     letter-spacing:0.04em;
     color:var(--red);
     margin-top:0.6rem;
     font-weight:700;
   }
-  .date-card .btn{margin-top:1.5rem;}
+  .date-card .btn{margin-top:1.4rem;}
   .date-fine{
     font-size:0.76rem;
     color:var(--ink-soft);
     border-top:1px solid var(--sand);
-    margin-top:1.4rem;
+    margin-top:1.3rem;
     padding-top:1.1rem;
   }
+
+  @media (max-width:860px){
+    .date-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{background:var(--red-mid); color:var(--paper); text-align:center;}
+  .final-cta .wrap{max-width:680px;}
+  .final-photo{
+    display:block;
+    width:auto;
+    max-width:100%;
+    height:auto;
+    max-height:200px;
+    margin:0 auto 1.4rem;
+    background:transparent;
+  }
+  .final-cta .eyebrow{color:var(--paper);}
+  .final-cta h2{color:var(--paper);}
+  .final-cta p{color:var(--sand); margin-top:0.9rem;}
+  .final-sub{
+    font-family:"Poppins", Arial, sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--paper);
+    margin-top:2rem;
+  }
+  .final-cta .btn{margin-top:2rem;}
 
   /* ---------- Footer ---------- */
   footer{
@@ -479,10 +504,10 @@
       <path d="M15 23v21h26V23"/>
       <rect x="24" y="30" width="8" height="14"/>
     </svg>
-    <p class="eyebrow">By Invitation Only &middot; REALTOR&reg; Breakfast Series</p>
-    <h1>Exclusive REALTOR&reg;<br><em>Investor Breakfast</em></h1>
+    <p class="eyebrow">By Invitation Only</p>
+    <h1>Private REALTOR&reg;<br><em>Business &amp; Impact Roundtable</em></h1>
+    <p class="hero-subhead">Serve More Clients. Create More Impact. Make a Difference. Build a Legacy.</p>
     <p class="hero-loc">Trophy Club Country Club &nbsp;&middot;&nbsp; 500 Trophy Club Drive, Trophy Club, TX 76262</p>
-    <p class="hero-desc">A private roundtable for REALTORS&reg; who want to think, analyze, and negotiate like investors &mdash; over a family-style breakfast, with one hour of CE credit included.</p>
     <span class="hero-badge">Invited Guests Only</span>
     <div class="hero-cta">
       <a class="btn" href="#dates">Reserve Your Seat</a>
@@ -511,26 +536,42 @@
         <span class="countdown-label">Seconds</span>
       </div>
     </div>
-    <p class="countdown-caption" id="cd-caption">Until we gather at Trophy Club Country Club</p>
+    <p class="countdown-caption" id="cd-caption">Until our next roundtable at Trophy Club Country Club</p>
   </div>
 </div>
+
+<section id="intro">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Your Invitation</span>
+    </div>
+    <div class="intro-copy">
+      <p>You're personally invited to join us for an exclusive Save One Pay One Private REALTOR&reg; Business &amp; Impact Roundtable at Trophy Club Country Club.</p>
+      <p>Enjoy an amazing complimentary breakfast, earn one hour of CE credit, connect with fellow professionals, and learn practical strategies designed to help you recognize seller opportunities, grow your business, and create a meaningful impact within the communities you serve.</p>
+      <p>We believe the value of an event comes not only from the content shared, but also from the caliber of professionals gathered around the table. That is why attendance is intentionally limited &mdash; to foster meaningful conversations, valuable relationships, and an elevated experience for everyone in the room.</p>
+    </div>
+  </div>
+</section>
 
 <div class="schedule">
   <div class="wrap schedule-grid">
     <div class="schedule-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2"/><path d="M9 2h6"/></svg>
-      <h3>Arrive &amp; Network</h3>
-      <p>Breakfast served family-style before the program begins.</p>
+      <div class="schedule-time">9:15 AM</div>
+      <h3>Arrive, Enjoy Breakfast &amp; Network</h3>
+      <p>Enjoy a delicious complimentary breakfast while connecting with fellow real estate professionals.</p>
     </div>
     <div class="schedule-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18"/><path d="M8 2v4M16 2v4"/></svg>
-      <h3>Program 9:15 &ndash; 10:30 AM</h3>
-      <p>Seated and ready &mdash; the roundtable runs sharp on time.</p>
+      <div class="schedule-time">9:30 AM SHARP</div>
+      <h3>Presentation Begins</h3>
+      <p>Please be seated and ready for an impactful, purpose-driven session.</p>
     </div>
     <div class="schedule-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 21V4"/><path d="M5 5h13l-3 4 3 4H5"/></svg>
-      <h3>Leave With a Plan</h3>
-      <p>Actionable insight, CE credit, and a trusted cash-buyer contact.</p>
+      <div class="schedule-time">10:30 AM SHARP</div>
+      <h3>Presentation Concludes</h3>
+      <p>Leave with actionable insights designed to move your business forward.</p>
     </div>
   </div>
 </div>
@@ -540,88 +581,55 @@
     <div class="section-head">
       <span class="eyebrow">The Roundtable</span>
       <h2>What You Will Gain</h2>
-      <p>Six takeaways built for REALTORS&reg; who want to serve clients the way an investor would.</p>
     </div>
 
     <div class="gain-grid">
       <div class="gain-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><polygon points="12,7 13.3,10.1 16.6,10.4 14.1,12.6 14.9,15.8 12,14 9.1,15.8 9.9,12.6 7.4,10.4 10.7,10.1"/></svg>
-        <h3>Private Investor Roundtable</h3>
-        <p>Exclusive access and an elevated perspective, seated among peers.</p>
+        <h3>Private REALTOR&reg; Business &amp; Impact Roundtable</h3>
+        <p>Exclusive access. Elevated perspective.</p>
       </div>
       <div class="gain-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 5c3-1.5 6-1.5 8 0v14c-2-1.5-5-1.5-8 0V5z"/><path d="M20 5c-3-1.5-6-1.5-8 0v14c2-1.5 5-1.5 8 0V5z"/></svg>
-        <h3>1 Hour CE Credit</h3>
-        <p>Course #54060. The credit is included &mdash; the insight is priceless.</p>
+        <h3>One Hour of CE Credit</h3>
+        <p>Course #54060. The credit is included. The insight is priceless.</p>
       </div>
       <div class="gain-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 20V10M11 20V4M18 20v-7"/><path d="M3 20h18"/></svg>
-        <h3>Analyze Like an Investor</h3>
-        <p>Evaluate properties using ARV, comps, and rehab-cost insight.</p>
+        <h3>Analyze Properties Like an Investor</h3>
+        <p>Learn to evaluate properties using ARV, comparable sales, and rehabilitation insights.</p>
       </div>
       <div class="gain-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><ellipse cx="12" cy="6" rx="7" ry="2.4"/><path d="M5 6v6c0 1.3 3.1 2.4 7 2.4s7-1.1 7-2.4V6"/><path d="M5 12v6c0 1.3 3.1 2.4 7 2.4s7-1.1 7-2.4v-6"/></svg>
-        <h3>Master Creative Financing</h3>
-        <p>Strategies every modern REALTOR&reg; should carry in their toolkit.</p>
+        <h3>Master Creative Financing Strategies</h3>
+        <p>Discover creative financing strategies every modern real estate professional should have in their toolkit.</p>
       </div>
       <div class="gain-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 11l9-7 9 7"/><path d="M6 10v10h12V10"/><line x1="12" y1="15" x2="12" y2="15.01"/></svg>
-        <h3>A Trusted Local Cash Buyer</h3>
-        <p>Fast-track property sales with direct access to a vetted buyer.</p>
+        <h3>Access a Trusted Local Cash Buyer</h3>
+        <p>Learn how Save One Pay One provides fast-track property sales with direct access to a trusted local cash-buying team.</p>
       </div>
       <div class="gain-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
-        <h3>Recognize Seller Signals</h3>
-        <p>Sharpen listing conversations by spotting true seller intent early.</p>
+        <h3>Recognize Seller Opportunity Signals</h3>
+        <p>Sharpen your listing conversations by learning how to recognize genuine seller intent early.</p>
       </div>
     </div>
   </div>
 </section>
 
 <section class="about">
-  <div class="wrap about-grid">
-    <div>
-      <p class="eyebrow">Serve More Clients. Create More Impact.</p>
-      <h2>Save One Pay One is purpose-driven, not transaction-driven.</h2>
-      <p>We work alongside REALTORS&reg; &mdash; not around them &mdash; to give sellers a dignified, fast option when a traditional listing isn't the right fit. Every roundtable is designed to expand what you can offer your clients.</p>
-      <p class="about-tagline">Make a difference. Build a legacy.</p>
-    </div>
-    <div class="seating-card">
-      <img class="seating-photo" src="https://assets.cdn.filesafe.space/DaeITdJ7ZcYSX6v6Yt6M/media/6aa47583bd4cad19259ac00d.png" alt="Breakfast spread served at the roundtable" onerror="this.style.display='none'">
-      <p class="eyebrow">A Delicious Start</p>
-      <h3>Breakfast, Family-Style</h3>
-      <p>A thoughtfully prepared spread sets the tone before the roundtable begins. Seating is intentionally limited to keep the discussion collaborative.</p>
-    </div>
-  </div>
-</section>
-
-<section id="dates">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Limited Seating &middot; Invited Guests Only</span>
-      <h2>Reserve Your Seat</h2>
-      <p>One private roundtable to start at Trophy Club Country Club &mdash; capped in size to keep the conversation close.</p>
-    </div>
-
-    <div class="date-grid">
-
-      <div class="date-card">
-        <span class="eyebrow" id="active-eyebrow">Next Session</span>
-        <div class="date-day" id="active-day">Tuesday</div>
-        <div class="date-full" id="active-full">October 13, 2026</div>
-        <div class="date-time" id="active-time">9:15 &ndash; 10:30 AM</div>
-        <a class="btn btn--block" id="active-link" href="https://api.leadconnectorhq.com/widget/booking/Mx3LNoC5FbpbyfAxDnpB" target="_blank" rel="noopener">Reserve This Date</a>
-        <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
-      </div>
-
-    </div>
+    <p class="eyebrow">Serve More Clients. Create More Impact.</p>
+    <h2>Save One Pay One is purpose-driven, not transaction-driven.</h2>
+    <p>We work alongside REALTORS&reg; &mdash; not around them &mdash; to give sellers a dignified, fast option when a traditional listing isn't the right fit. Every roundtable is designed to expand what you can offer your clients.</p>
   </div>
 </section>
 
 <section id="location">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Getting There</span>
+      <span class="eyebrow">Location</span>
       <h2>Trophy Club Country Club</h2>
       <p>500 Trophy Club Drive, Trophy Club, TX 76262</p>
     </div>
@@ -643,6 +651,72 @@
   </div>
 </section>
 
+<section id="notice">
+  <div class="wrap">
+    <div class="notice">
+      <div class="notice-head">Important: Please Read Before Registering</div>
+      <p>This private, invitation-only roundtable is reserved exclusively for actively licensed real estate agents and real estate brokers.</p>
+      <p>If you are a vendor, service provider, wholesaler, real estate investor, mortgage or lending professional, title representative, member of the general public, or do not fall into one of the two approved professional categories, please do not register as a real estate agent or broker.</p>
+      <p>Instead, select &ldquo;Other&rdquo; during registration and provide the requested information explaining how you received this private invitation.</p>
+      <p>All &ldquo;Other&rdquo; requests will be personally reviewed and are not considered confirmed reservations unless written approval is provided directly by Save One Pay One.</p>
+      <p>Thank you for helping us protect the purpose, privacy, and professional integrity of the room.</p>
+    </div>
+  </div>
+</section>
+
+<section id="dates">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Limited Seating &middot; Invited Guests Only</span>
+      <h2>Available Event Dates</h2>
+      <p>Choose the date that works for your schedule &mdash; each roundtable is capped in size to keep the conversation close.</p>
+    </div>
+
+    <div class="date-grid">
+
+      <div class="date-card">
+        <span class="eyebrow">Session One</span>
+        <div class="date-day">Tuesday</div>
+        <div class="date-full">October 13, 2026</div>
+        <div class="date-time">9:15 AM to 10:30 AM</div>
+        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/Mx3LNoC5FbpbyfAxDnpB" target="_blank" rel="noopener">Reserve My Seat for October 13</a>
+        <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
+      </div>
+
+      <div class="date-card">
+        <span class="eyebrow">Session Two</span>
+        <div class="date-day">Thursday</div>
+        <div class="date-full">October 22, 2026</div>
+        <div class="date-time">9:15 AM to 10:30 AM</div>
+        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/RYlMzvSEvnCmRisa98Vj" target="_blank" rel="noopener">Reserve My Seat for October 22</a>
+        <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
+      </div>
+
+      <div class="date-card">
+        <span class="eyebrow">Session Three</span>
+        <div class="date-day">Thursday</div>
+        <div class="date-full">November 12, 2026</div>
+        <div class="date-time">9:15 AM to 10:30 AM</div>
+        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/jZPrE627G8QRaYMEHJ6Q" target="_blank" rel="noopener">Reserve My Seat for November 12</a>
+        <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <img class="final-photo" src="https://assets.cdn.filesafe.space/DaeITdJ7ZcYSX6v6Yt6M/media/6aa47583bd4cad19259ac00d.png" alt="Breakfast spread served at the roundtable" onerror="this.style.display='none'">
+    <span class="eyebrow">A Delicious Start</span>
+    <h2>A Delicious Start to Your Day</h2>
+    <p>Enjoy a phenomenal selection of breakfast favorites, thoughtfully prepared and served family-style to set the tone for a fantastic day ahead.</p>
+    <p class="final-sub">Limited Seating Available</p>
+    <p>This private roundtable is intentionally limited in size to encourage meaningful discussion, trusted relationships, and collaborative engagement.</p>
+    <a class="btn" href="#dates">Accept Your Invitation</a>
+  </div>
+</section>
+
 <footer>
   <div class="wrap footer-grid">
     <div class="footer-logo-card">
@@ -654,51 +728,27 @@
 
 <script>
 (function(){
-  /* SESSIONS LIST -- add, remove, or edit dates here. The page always
-     shows the first one that hasn't happened yet, based on the
-     visitor's clock, and switches to the next automatically once a
-     date passes. "iso" needs a real UTC offset: Trophy Club, TX runs
-     Central time, which is -05:00 while Daylight Time is in effect
-     (roughly mid-March through the first Sunday of November) and
-     -06:00 the rest of the year. */
+  /* SESSIONS LIST -- drives only the countdown timer above. The three
+     date cards further down the page are static HTML; edit their
+     text/links directly. Keep this list in sync with those cards so
+     the countdown always points at a real, currently-offered date.
+     "iso" needs a real UTC offset: Trophy Club, TX runs Central time,
+     which is -05:00 while Daylight Time is in effect (roughly
+     mid-March through the first Sunday of November) and -06:00 the
+     rest of the year. */
   var SESSIONS = [
-    {
-      day: "Tuesday", full: "October 13, 2026", time: "9:15 &ndash; 10:30 AM",
-      iso: "2026-10-13T09:15:00-05:00",
-      link: "https://api.leadconnectorhq.com/widget/booking/Mx3LNoC5FbpbyfAxDnpB"
-    },
-    {
-      day: "Thursday", full: "October 22, 2026", time: "9:15 &ndash; 10:30 AM",
-      iso: "2026-10-22T09:15:00-05:00",
-      link: "https://api.leadconnectorhq.com/widget/booking/RYlMzvSEvnCmRisa98Vj"
-    },
-    {
-      day: "Thursday", full: "November 12, 2026", time: "9:15 &ndash; 10:30 AM",
-      iso: "2026-11-12T09:15:00-06:00",
-      link: "https://api.leadconnectorhq.com/widget/booking/jZPrE627G8QRaYMEHJ6Q"
-    }
+    { iso: "2026-10-13T09:15:00-05:00" },
+    { iso: "2026-10-22T09:15:00-05:00" },
+    { iso: "2026-11-12T09:15:00-06:00" }
   ];
 
   var now = Date.now();
   var upcoming = SESSIONS.filter(function(s){ return new Date(s.iso).getTime() > now; });
   var hasUpcoming = upcoming.length > 0;
-  var session = hasUpcoming ? upcoming[0] : SESSIONS[SESSIONS.length - 1];
+  var target = hasUpcoming
+    ? new Date(upcoming[0].iso).getTime()
+    : new Date(SESSIONS[SESSIONS.length - 1].iso).getTime();
 
-  var eyebrowEl = document.getElementById('active-eyebrow');
-  var dayEl = document.getElementById('active-day');
-  var fullEl = document.getElementById('active-full');
-  var timeEl = document.getElementById('active-time');
-  var linkEl = document.getElementById('active-link');
-
-  dayEl.textContent = session.day;
-  fullEl.textContent = session.full;
-  timeEl.innerHTML = session.time;
-  linkEl.href = session.link;
-  if(!hasUpcoming){
-    eyebrowEl.textContent = 'More Dates Coming Soon';
-  }
-
-  var target = new Date(session.iso).getTime();
   var daysEl = document.getElementById('cd-days');
   var hoursEl = document.getElementById('cd-hours');
   var minsEl = document.getElementById('cd-mins');
