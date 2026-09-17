@@ -16,11 +16,11 @@
   2. Add a "Custom Code" / "Embed" element and paste EVERYTHING inside
      the <body> tag below as ONE block (the <style> and <script> travel
      with it). Do not split the CSS into a separate field.
-  3. All three dates (Oct 13, Oct 22, Nov 12) are live as separate
-     buttons in the "AVAILABLE EVENT DATES" section, each linking to
-     its own GHL calendar booking widget. The countdown timer above
-     it auto-advances to whichever date hasn't happened yet -- edit
-     the SESSIONS list inside the <script> tag near the bottom to
+  3. Both dates (Oct 22, Nov 12) are live as separate buttons in the
+     "AVAILABLE EVENT DATES" section, each linking to its own GHL
+     calendar booking widget. The countdown timer above it auto-
+     advances to whichever date hasn't happened yet -- edit the
+     SESSIONS list inside the <script> tag near the bottom to
      change dates/links.
   4. The hero photo, breakfast photo, and logo are already wired up.
   5. The map already points at 500 Trophy Club Drive, Trophy Club, TX
@@ -427,8 +427,10 @@
   #dates{padding-top:1rem;}
   .date-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(2,1fr);
     gap:1.5rem;
+    max-width:760px;
+    margin-inline:auto;
   }
   .date-card{
     background:var(--card);
@@ -470,7 +472,7 @@
     padding-top:1.1rem;
   }
 
-  @media (max-width:860px){
+  @media (max-width:640px){
     .date-grid{grid-template-columns:1fr;}
   }
 
@@ -703,28 +705,19 @@
 
       <div class="date-card">
         <span class="eyebrow">Session One</span>
-        <div class="date-day">Tuesday</div>
-        <div class="date-full">October 13, 2026</div>
+        <div class="date-day">Thursday</div>
+        <div class="date-full">October 22, 2026</div>
         <div class="date-time">9:15 AM to 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/Mx3LNoC5FbpbyfAxDnpB" target="_blank" rel="noopener">Accept My Invitation</a>
+        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/3RxkIch3ixS0mfJcuzSR" target="_blank" rel="noopener">Accept My Invitation</a>
         <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
       </div>
 
       <div class="date-card">
         <span class="eyebrow">Session Two</span>
         <div class="date-day">Thursday</div>
-        <div class="date-full">October 22, 2026</div>
-        <div class="date-time">9:15 AM to 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/THpYfrjl94m1ef7IQZHJ" target="_blank" rel="noopener">Accept My Invitation</a>
-        <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
-      </div>
-
-      <div class="date-card">
-        <span class="eyebrow">Session Three</span>
-        <div class="date-day">Thursday</div>
         <div class="date-full">November 12, 2026</div>
         <div class="date-time">9:15 AM to 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/Ikl4CpLyxiSuui5ZKWKi" target="_blank" rel="noopener">Accept My Invitation</a>
+        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/WyTlDqI4B3BocD7fhutj" target="_blank" rel="noopener">Accept My Invitation</a>
         <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
       </div>
 
@@ -789,7 +782,6 @@
      mid-March through the first Sunday of November) and -06:00 the
      rest of the year. */
   var SESSIONS = [
-    { iso: "2026-10-13T09:15:00-05:00" },
     { iso: "2026-10-22T09:15:00-05:00" },
     { iso: "2026-11-12T09:15:00-06:00" }
   ];
