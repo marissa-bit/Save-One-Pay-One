@@ -16,12 +16,11 @@
   2. Add a "Custom Code" / "Embed" element and paste EVERYTHING inside
      the <body> tag below as ONE block (the <style> and <script> travel
      with it). Do not split the CSS into a separate field.
-  3. Both dates (Oct 22, Nov 12) are live as separate buttons in the
-     "AVAILABLE EVENT DATES" section, each linking to its own GHL
-     calendar booking widget. The countdown timer above it auto-
-     advances to whichever date hasn't happened yet -- edit the
-     SESSIONS list inside the <script> tag near the bottom to
-     change dates/links.
+  3. The single event date (Oct 13) is live as a button in the
+     "AVAILABLE EVENT DATE" section, linking to its GHL calendar
+     booking widget. The countdown timer above it counts down to
+     this date -- edit the SESSIONS list inside the <script> tag
+     near the bottom to change the date/link.
   4. The hero photo, breakfast photo, and logo are already wired up.
   5. The map already points at 500 Trophy Club Drive, Trophy Club, TX
      76262 and needs no API key.
@@ -427,9 +426,9 @@
   #dates{padding-top:1rem;}
   .date-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:1fr;
     gap:1.5rem;
-    max-width:760px;
+    max-width:420px;
     margin-inline:auto;
   }
   .date-card{
@@ -470,10 +469,6 @@
     border-top:1px solid var(--sand);
     margin-top:1.3rem;
     padding-top:1.1rem;
-  }
-
-  @media (max-width:640px){
-    .date-grid{grid-template-columns:1fr;}
   }
 
   /* ---------- Final CTA ---------- */
@@ -697,27 +692,18 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Limited Seating &middot; Invited Guests Only</span>
-      <h2>Available Event Dates</h2>
-      <p>Choose the date that works for your schedule &mdash; each roundtable is capped in size to keep the conversation close.</p>
+      <h2>Available Event Date</h2>
+      <p>Reserve your seat &mdash; this roundtable is capped in size to keep the conversation close.</p>
     </div>
 
     <div class="date-grid">
 
       <div class="date-card">
-        <span class="eyebrow">Session One</span>
-        <div class="date-day">Thursday</div>
-        <div class="date-full">October 22, 2026</div>
+        <span class="eyebrow">Reserve Your Seat</span>
+        <div class="date-day">Tuesday</div>
+        <div class="date-full">October 13, 2026</div>
         <div class="date-time">9:30 AM to 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/3RxkIch3ixS0mfJcuzSR" target="_blank" rel="noopener">Accept My Invitation</a>
-        <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
-      </div>
-
-      <div class="date-card">
-        <span class="eyebrow">Session Two</span>
-        <div class="date-day">Thursday</div>
-        <div class="date-full">November 12, 2026</div>
-        <div class="date-time">9:30 AM to 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/WyTlDqI4B3BocD7fhutj" target="_blank" rel="noopener">Accept My Invitation</a>
+        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/Mx3LNoC5FbpbyfAxDnpB" target="_blank" rel="noopener">Accept My Invitation</a>
         <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
       </div>
 
@@ -773,17 +759,16 @@
 
 <script>
 (function(){
-  /* SESSIONS LIST -- drives only the countdown timer above. The two
-     date cards further down the page are static HTML; edit their
-     text/links directly. Keep this list in sync with those cards so
+  /* SESSIONS LIST -- drives only the countdown timer above. The
+     date card further down the page is static HTML; edit its
+     text/link directly. Keep this list in sync with that card so
      the countdown always points at a real, currently-offered date.
      "iso" needs a real UTC offset: Trophy Club, TX runs Central time,
      which is -05:00 while Daylight Time is in effect (roughly
      mid-March through the first Sunday of November) and -06:00 the
      rest of the year. */
   var SESSIONS = [
-    { iso: "2026-10-22T09:15:00-05:00" },
-    { iso: "2026-11-12T09:15:00-06:00" }
+    { iso: "2026-10-13T09:15:00-05:00" }
   ];
 
   var now = Date.now();
