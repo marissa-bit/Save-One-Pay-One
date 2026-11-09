@@ -16,12 +16,12 @@
   2. Add a "Custom Code" / "Embed" element and paste EVERYTHING inside
      the <body> tag below as ONE block (the <style> and <script> travel
      with it). Do not split the CSS into a separate field.
-  3. Both dates (Oct 22, Nov 12) are live as separate buttons in the
-     "AVAILABLE EVENT DATES" section, each linking to its own GHL
-     calendar booking widget. The countdown timer above it auto-
-     advances to whichever date hasn't happened yet -- edit the
-     SESSIONS list inside the <script> tag near the bottom to
-     change dates/links.
+  3. All three dates (Jan 27, Feb 24, Mar 24, 2027) are live as
+     separate buttons in the "AVAILABLE EVENT DATES" section, each
+     linking to its own GHL calendar booking widget. The countdown
+     timer above it auto-advances to whichever date hasn't happened
+     yet -- edit the SESSIONS list inside the <script> tag near the
+     bottom to change dates/links.
   4. The hero photo, breakfast photo, and logo are already wired up.
   5. The map already points at 500 Trophy Club Drive, Trophy Club, TX
      76262 and needs no API key.
@@ -427,10 +427,8 @@
   #dates{padding-top:1rem;}
   .date-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:1.5rem;
-    max-width:760px;
-    margin-inline:auto;
   }
   .date-card{
     background:var(--card);
@@ -472,7 +470,7 @@
     padding-top:1.1rem;
   }
 
-  @media (max-width:640px){
+  @media (max-width:860px){
     .date-grid{grid-template-columns:1fr;}
   }
 
@@ -705,19 +703,28 @@
 
       <div class="date-card">
         <span class="eyebrow">Session One</span>
-        <div class="date-day">Thursday</div>
-        <div class="date-full">October 22, 2026</div>
+        <div class="date-day">Wednesday</div>
+        <div class="date-full">January 27, 2027</div>
         <div class="date-time">9:15 AM to 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/3RxkIch3ixS0mfJcuzSR" target="_blank" rel="noopener">Accept My Invitation</a>
+        <a class="btn btn--block" href="#PASTE_JAN_27_BOOKING_LINK" target="_blank" rel="noopener">Accept My Invitation</a>
         <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
       </div>
 
       <div class="date-card">
         <span class="eyebrow">Session Two</span>
-        <div class="date-day">Thursday</div>
-        <div class="date-full">November 12, 2026</div>
+        <div class="date-day">Wednesday</div>
+        <div class="date-full">February 24, 2027</div>
         <div class="date-time">9:15 AM to 10:30 AM</div>
-        <a class="btn btn--block" href="https://api.leadconnectorhq.com/widget/booking/WyTlDqI4B3BocD7fhutj" target="_blank" rel="noopener">Accept My Invitation</a>
+        <a class="btn btn--block" href="#PASTE_FEB_24_BOOKING_LINK" target="_blank" rel="noopener">Accept My Invitation</a>
+        <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
+      </div>
+
+      <div class="date-card">
+        <span class="eyebrow">Session Three</span>
+        <div class="date-day">Wednesday</div>
+        <div class="date-full">March 24, 2027</div>
+        <div class="date-time">9:15 AM to 10:30 AM</div>
+        <a class="btn btn--block" href="#PASTE_MAR_24_BOOKING_LINK" target="_blank" rel="noopener">Accept My Invitation</a>
         <div class="date-fine">Trophy Club Country Club<br>1 Hour CE Credit &middot; Course #54060</div>
       </div>
 
@@ -773,7 +780,7 @@
 
 <script>
 (function(){
-  /* SESSIONS LIST -- drives only the countdown timer above. The two
+  /* SESSIONS LIST -- drives only the countdown timer above. The three
      date cards further down the page are static HTML; edit their
      text/links directly. Keep this list in sync with those cards so
      the countdown always points at a real, currently-offered date.
@@ -782,8 +789,9 @@
      mid-March through the first Sunday of November) and -06:00 the
      rest of the year. */
   var SESSIONS = [
-    { iso: "2026-10-22T09:15:00-05:00" },
-    { iso: "2026-11-12T09:15:00-06:00" }
+    { iso: "2027-01-27T09:15:00-06:00" },
+    { iso: "2027-02-24T09:15:00-06:00" },
+    { iso: "2027-03-24T09:15:00-05:00" }
   ];
 
   var now = Date.now();
